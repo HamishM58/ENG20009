@@ -11,7 +11,7 @@ AccelStepper stepper = AccelStepper(MotorInterfaceType, MP1, MP3, MP2, MP4);//De
 const int SPR = 2048;//Steps per revolution
 
 //RTC
-#include "RTClib.h" 
+#include "RTClib.h"
 
 //SD
 #include "SdFat.h"
@@ -149,6 +149,10 @@ void loop(){
     }
 }
 //Functions
+void SetupRTC(){
+  rtc.begin();
+  rtc.adjust(DateTime(2023, 3, 21, 9, 0, 0));
+}
 void SetupSD(){
   if (!sd.begin(SD_CONFIG)) {
     Serial.println("SD card initialization failed!");
