@@ -131,6 +131,7 @@ void setup(){
   SetupButtons();
   SetupStepper();
   SetupLCD();
+  SetupRTC();
   SetupSD();
   SetupInterupt();
 
@@ -151,7 +152,8 @@ void loop(){
 //Functions
 void SetupRTC(){
   rtc.begin();
-  rtc.adjust(DateTime(2023, 3, 21, 9, 0, 0));
+  rtc.adjust(DateTime(2025, 1, 1, 9, 0, 0));
+  Serial.println("--RTC Setup--");
 }
 void SetupSD(){
   if (!sd.begin(SD_CONFIG)) {
@@ -161,7 +163,7 @@ void SetupSD(){
   else{
     file.open("LoggerFile.txt", O_RDWR | O_CREAT);
     file.close();
-    Serial.print("--SD Setup--");
+    Serial.println("--SD Setup--");
   }
 }
 void LogVariable(int type, float Value1, float Value2, float Value3) {  
@@ -194,7 +196,6 @@ void LogVariable(int type, float Value1, float Value2, float Value3) {
     default:
       Datatype = "UNKNOWN ";
       break;
-
   }
   file.open("LoggerFile.txt", O_RDWR);
   file.seekEnd();
